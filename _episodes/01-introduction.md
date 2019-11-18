@@ -99,51 +99,7 @@ only the sources are available, a number of steps needs to happen:
 2. Static Linking
 3. Dynamic Linking
 
-{% graphviz %}
-digraph build {
-   sourcesc [ label = "Source Files\n.c,.cpp", color = blue , shape = box];
-   headers [ label = "Header Files\n.h,.hpp", color = blue, shape = box ];
-   sourcesf [ label = "Source Files\n.F*,.f*" , color = green, shape = box ];
-   modulesf [ label = "Module Files\n.mod", color = green, shape = box ];
-   modulescpp [ label = "Module Files\n.bmi", color = blue, shape = bo, style =
-   dotted];
-   compilation [ label = "Compiler\ngcc,g++,gfortran,icc,ifort,...", shape =
-  pentagon, color = orange ];
-   envscompilation [ label = "Where to find headers?\n$CPATH,-I/path,..." ];
-   envslinking [ label = "Where to find libraries?\n$LIBRARY_PATH,\n-L/path, -lmylib, ..." ];
-   envslinkingdyn [ label = "Where to find
-   libraries?\n$LD_LIBRARY_PATH,\n$LD_PRELOAD..." ];
-   objects [label = "Object Files\n.o", shape = box ];
-   statlinking [ label = "Static Linking\n\"ld\" (and wrappers)", shape = pentagon, color = orange ] 
-   program [ label = "Executable", shape = box ];
-   dynlinking [ label = "Dynamic Linking\n\"ld\"", shape = pentagon, color =
-   orange ] 
-   running [label = "Running Executable", shape = box ];
-
-   subgraph clustercmake {
-     label = "Managed by the Build System";
-     style = dotted ;
-     compilation modulesf modulescpp objects statlinking envslinking
-     envscompilation
-   };
-
-   envscompilation -> compilation;
-   sourcesc -> compilation [color = blue];
-   sourcesf -> compilation [color = green] ;
-   headers -> compilation [color = blue];
-   modulesf -> compilation [color = green];
-   modulescpp -> compilation [ color = blue, style = dotted] ;
-   compilation -> objects ;
-   compilation -> modulesf [color = green ] ;
-   compilation -> modulescpp [ color = blue, style = dotted];
-   envslinking -> statlinking ;
-   objects -> statlinking ; 
-   statlinking -> program;
-   program -> dynlinking;
-   envslinkingdyn -> dynlinking;
-   dynlinking -> running;
-}
-{% endgraphviz %}
+WHERE IS MY AWESOME GRAPH
 
 #### Compilation
 In the compilation, the source files (`.c`,`.cpp`,`.f*`,`.F*`) are translated
