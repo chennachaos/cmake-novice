@@ -1,6 +1,6 @@
 ---
-title: "Changing compilers"
-teaching: 15
+title: "CTest"
+teaching: 20
 exercises: 15
 questions:
 - "Key question (FIXME)"

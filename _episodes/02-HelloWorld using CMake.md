@@ -1,13 +1,19 @@
 ---
 title: "HelloWorld using CMake"
 teaching: 10
-exercises: 10
+exercises: 5
 questions:
 - "How to use CMake for building applications?"
+- "How to create a CMakeLists.txt file?"
 objectives:
 - "To learn CMake using a simple example"
+- "To learn to create a CMakeLists.txt file"
 keypoints:
-- "First key point. Brief Answer to questions. (FIXME)"
+- "The **three steps** involved in building an executable using CMake are:
+   1.) Configuration, 2.) Build and 3.) Installation."
+- "`Installation` step is optional. But it is very useful for large projects."
+- "Executing the `cmake CMakeLists.txt` command generates the configuration
+   files required for building the executable."
 ---
 
 ## Writing CMakeLists.txt
@@ -46,7 +52,7 @@ Our CMakeLists.txt file consists of three lines.
 * The last line specifies that the executable `hello_cmake` is to
   be built using the source file `hello_cmake.cpp`.
 
-Now, let us how we can compile the source code and build the executable
+Now, let us see how we can compile the source code and build the executable
 using this CMakeLists.txt file. For this exercise, we use the GNU compiler.
 
 Load the GNU compiler.
@@ -69,6 +75,7 @@ cmake CMakeLists.txt
 ~~~
 {: .language-bash}
 
+
 **2.) Build step:** This step involves compiling the source code,
 and generating the executable. This is done by executing
 ~~~
@@ -78,8 +85,8 @@ make
 
 **3.) Installation step:** This step copies the successfully generated
 executables to the path specified. This step is not necessary for this
-example. But it is very useful in organising the source code into multiple
-folder when dealing with the large projects.
+example. But it is very useful for organising the source code into multiple
+folders when dealing with the large projects.
 ~~~
 make install
 ~~~
@@ -130,7 +137,7 @@ drwxrwxr-x. 5 s.engkadac s.engkadac  4096 Sep 11 12:16 CMakeFiles
 -rw-r--r--. 1 s.engkadac s.engkadac   105 Sep 11 12:08 hello_cmake.cpp
 -rw-rw-r--. 1 s.engkadac s.engkadac  4943 Sep 11 12:16 Makefile
 ~~~
-{: .output}
+{: .language-bash}
 
 As we can notice, CMake has identified the environment as Linux and 
 has created a `Makefile` for this project. Once we have the Makefile(s),
@@ -142,7 +149,7 @@ Scanning dependencies of target hello_cmake
 Linking CXX executable hello_cmake
 [100%] Built target hello_cmake
 ~~~
-{: .output}
+{: .language-bash}
 
 The last in the output tells us that the executable `hello_cmake` has been
 successfully generated. We can now execute it.
@@ -150,7 +157,7 @@ successfully generated. We can now execute it.
 [s.engkadac@sl2 hello]$ ./hello_cmake 
 Hello CMake!
 ~~~
-{: .output}
+{: .language-bash}
 
 
 Hurray!! We have successfully built an executable that works as intended.

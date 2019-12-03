@@ -1,15 +1,21 @@
 ---
 title: "Using CMake with multiple source files"
-teaching: 20
-exercises: 20
+teaching: 15
+exercises: 15
 questions:
-- "How to setup the CMakeLists.txt file for multiple source files?"
-- "How to organise directories?"
+- "How to setup the CMakeLists.txt file for a project with
+   multiple source files?"
+- "How to organise large projects effectively?"
+- "How to build a single target?"
 objectives:
 - "To learn to create CMakeLists.txt for a project with
   multiple source files"
+- "To learn to build all or a single target"
 keypoints:
-- "First key point. Brief Answer to questions. (FIXME)"
+- "Use multiple folders for the effective organisation of a project,
+   especially large projects"
+- "By default, CMake builds all targets. This behaviour can be changed
+   by passing `--target <targent_name>` to the `cmake` command"
 ---
 
 ## CMake for building a project with multiple source files
@@ -57,6 +63,9 @@ install(TARGETS ex2test1 ex2test2 RUNTIME DESTINATION /home/s.engkadac/cmakecour
 ~~~
 {: .language-bash}
 
+`Make sure that you modify the installation path (DESTINATION) appropriately
+before you proceed.`
+
 We now have some additional lines when compared to the file from the
 example 1.
 
@@ -68,76 +77,67 @@ the command **include_directories**.
 * **file GLOB** gets the list of files matching the wildcard which can be
 passed to the *add_executable* command as the list of dependencies.
 
-Unlike the previous example, we now have two executables in this example.
+Unlike the previous example, we now have two targets (executables) in this example.
 We can build all the executables at once using a single execution of
-the `make` command.
+the `make` command, or we can specify the target that we want to build.
 
 
+**1.) Configuration Step:** This step creates the appropriate
+configuration files for the build system. Since we have organised our
+project into multiple directories, we use the `build` directory to
+store all the files (and folders) related to the configuration of the
+project.
 
-Executing the above command produces the following output.
+Enter the `build` directory (if you are not already in there), and then
+execute
 ~~~
-[s.engkadac@sl2 hello]$ cmake CMakeLists.txt 
--- The C compiler identification is GNU 7.3.0
--- The CXX compiler identification is GNU 7.3.0
--- Check for working C compiler: /apps/compilers/gnu/7.3.0/bin/gcc
--- Check for working C compiler: /apps/compilers/gnu/7.3.0/bin/gcc -- works
--- Detecting C compiler ABI info
--- Detecting C compiler ABI info - done
--- Check for working CXX compiler: /apps/compilers/gnu/7.3.0/bin/g++
--- Check for working CXX compiler: /apps/compilers/gnu/7.3.0/bin/g++ -- works
--- Detecting CXX compiler ABI info
--- Detecting CXX compiler ABI info - done
--- Configuring done
--- Generating done
--- Build files have been written to: /home/s.engkadac/cmakecourse/hello
+cmake ..
 ~~~
-{: .output}
+{: .language-bash}
+
+In `cmake ..`, `..` refers to the parent directory of the present working
+directory. Therefore, `cmake` finds the CMakeLists.txt file in the parent
+working directory (of the current directory), which is where we placed the 
+CMakeLists.txt file.
+
+**2.) Build step:** This step involves compiling the source code,
+and generating the executable. This is done by executing
+~~~
+make
+~~~
+{: .language-bash}
+
+**3.) Installation step:** This step copies the successfully generated
+executables to the path specified. This step is not necessary for this
+example. But it is very useful for organising the source code into multiple
+folders when dealing with the large projects.
+~~~
+make install
+~~~
+{: .language-bash}
 
 
-> ## cmake .
-> We can achieve the same by simply executing
-> ~~~
-> cmake .
-> ~~~
-> {: .language-bash}
-> This command runs the configuration step using the CMakeLists.txt 
-file available in the current working directory.
+
+> ## make install
+> If we execute the second step `make` but forget the third step
+> `make install`, then the executables in the DESTINATION folder do not
+> get updated.
+> Since `make install` also performs the task of step 2, if the source
+> code is updated, **it is recommended to use the third step 
+> `make install` directly instead of `make` followed by `make install`**.
 {: .callout}
 
-
-If we execute `ls -l` command, then we see several new files
-and a folder being created.
-~~~
-[s.engkadac@sl2 hello]$ ls -l
-total 36
--rw-rw-r--. 1 s.engkadac s.engkadac 12113 Sep 11 12:16 CMakeCache.txt
-drwxrwxr-x. 5 s.engkadac s.engkadac  4096 Sep 11 12:16 CMakeFiles
--rw-rw-r--. 1 s.engkadac s.engkadac  1612 Sep 11 12:16 cmake_install.cmake
--rw-r--r--. 1 s.engkadac s.engkadac   104 Sep 11 12:09 CMakeLists.txt
--rw-r--r--. 1 s.engkadac s.engkadac   105 Sep 11 12:08 hello_cmake.cpp
--rw-rw-r--. 1 s.engkadac s.engkadac  4943 Sep 11 12:16 Makefile
-~~~
-{: .output}
-
-As we can notice, CMake has identified the environment as Linux and 
-has created a `Makefile` for this project. Once we have the Makefile(s),
-we can compile the source code and build the executable.
-~~~
-[s.engkadac@sl2 hello]$ make
-Scanning dependencies of target hello_cmake
-[100%] Building CXX object CMakeFiles/hello_cmake.dir/hello_cmake.cpp.o
-Linking CXX executable hello_cmake
-[100%] Built target hello_cmake
-~~~
-{: .output}
-
-The last in the output tells us that the executable `hello_cmake` has been
-successfully generated. We can now execute it.
-~~~
-[s.engkadac@sl2 hello]$ ./hello_cmake 
-Hello CMake!
-~~~
-{: .output}
+> ## Fortran projects
+> When working with Fortran source code with Makefiles, we have to 
+> supply the (module) dependency information to the Makefiles.
+> While this is doable manually for small project, it becomes a
+> daunting task for large projects that consists of hundreds of source
+> files.
+>
+> This task is completely avoided by using CMake because CMake 
+> resolves depending for us. All that we need to do is to specify the list
+> source files, which we can do it by using wildcards, for example, *.f or *.f90 etc.
+{: .callout}
 
 
 {% include links.md %}

@@ -15,7 +15,7 @@ Computer program written in languages such as C, C++ and Fortran
 need to be compiled using an appropriate compiler in order to
 generate an executable.  
 Building software can be a very complicated process that requires identifying
-the depedencies in the source code and link them accordingly. If the software is
+the dependencies in the source code and link them accordingly. If the software is
 actively developed, these can also change over time.  
 For medium to large projects, taking care of such dependencies is a tedious task
 that is better performed automatically by a tool, usually called *build system*
@@ -146,6 +146,216 @@ message("Compiler options: ${COPT}")
 * `target_link_libraries` - sets the list of libraries to be linked when building a particular target
 
 * `install` - sets the path to the folder where the executables should be installed
+
+## Modern CMake
+* "Modern CMake" refers to CMake 3.0+.
+* "More Modern CMake" refers to CMake 3.12+.
+
+## Installing CMake
+### Windows
+For Windows OS, one can down pre-compiled binaries from <https://cmake.org/download/>.
+Installation of CMake on Windows from source code is complicated. For details, 
+refer to <https://cmake.org/install/>
+
+### Linux and macOS
+CMake is available in the package list on most of the Linux OS and mac OS.
+Pre-compiled binaries are also available for Linux and macOS. For installing
+CMake from source code, refer to <https://cmake.org/install/>
+
+
+
+## Help
+It is not possible to remember all the options available in CMake. To find out
+the list of options/commands available to us, or to know more about a certain command,
+we can either to [CMake documentation](https://cmake.org/cmake/help/v3.16/)
+online or by referring to its installed manual
+on your PC by using the `--help` argument(s).
+
+For example, `cmake --help` command will print an output similar to the following.
+
+~~~
+chenna@chenna-XPS-15-9570:~$ cmake --help
+Usage
+
+  cmake [options] <path-to-source>
+  cmake [options] <path-to-existing-build>
+
+Specify a source directory to (re-)generate a build system for it in the
+current working directory.  Specify an existing build directory to
+re-generate its build system.
+
+Options
+  -C <initial-cache>           = Pre-load a script to populate the cache.
+  -D <var>[:<type>]=<value>    = Create a cmake cache entry.
+  -U <globbing_expr>           = Remove matching entries from CMake cache.
+  -G <generator-name>          = Specify a build system generator.
+  -T <toolset-name>            = Specify toolset name if supported by
+                                 generator.
+  -A <platform-name>           = Specify platform name if supported by
+                                 generator.
+  -Wdev                        = Enable developer warnings.
+  -Wno-dev                     = Suppress developer warnings.
+  -Werror=dev                  = Make developer warnings errors.
+  -Wno-error=dev               = Make developer warnings not errors.
+  -Wdeprecated                 = Enable deprecation warnings.
+  -Wno-deprecated              = Suppress deprecation warnings.
+  -Werror=deprecated           = Make deprecated macro and function warnings
+                                 errors.
+  -Wno-error=deprecated        = Make deprecated macro and function warnings
+                                 not errors.
+  -E                           = CMake command mode.
+  -L[A][H]                     = List non-advanced cached variables.
+  --build <dir>                = Build a CMake-generated project binary tree.
+  -N                           = View mode only.
+  -P <file>                    = Process script mode.
+  --find-package               = Run in pkg-config like mode.
+  --graphviz=[file]            = Generate graphviz of dependencies, see
+                                 CMakeGraphVizOptions.cmake for more.
+  --system-information [file]  = Dump information about this system.
+  --debug-trycompile           = Do not delete the try_compile build tree.
+                                 Only useful on one try_compile at a time.
+  --debug-output               = Put cmake in a debug mode.
+  --trace                      = Put cmake in trace mode.
+  --trace-expand               = Put cmake in trace mode with variable
+                                 expansion.
+  --trace-source=<file>        = Trace only this CMake file/module.  Multiple
+                                 options allowed.
+  --warn-uninitialized         = Warn about uninitialized values.
+  --warn-unused-vars           = Warn about unused variables.
+  --no-warn-unused-cli         = Don't warn about command line options.
+  --check-system-vars          = Find problems with variable usage in system
+                                 files.
+  --help,-help,-usage,-h,-H,/? = Print usage information and exit.
+  --version,-version,/V [<f>]  = Print version number and exit.
+  --help-full [<f>]            = Print all help manuals and exit.
+  --help-manual <man> [<f>]    = Print one help manual and exit.
+  --help-manual-list [<f>]     = List help manuals available and exit.
+  --help-command <cmd> [<f>]   = Print help for one command and exit.
+  --help-command-list [<f>]    = List commands with help available and exit.
+  --help-commands [<f>]        = Print cmake-commands manual and exit.
+  --help-module <mod> [<f>]    = Print help for one module and exit.
+  --help-module-list [<f>]     = List modules with help available and exit.
+  --help-modules [<f>]         = Print cmake-modules manual and exit.
+  --help-policy <cmp> [<f>]    = Print help for one policy and exit.
+  --help-policy-list [<f>]     = List policies with help available and exit.
+  --help-policies [<f>]        = Print cmake-policies manual and exit.
+  --help-property <prop> [<f>] = Print help for one property and exit.
+  --help-property-list [<f>]   = List properties with help available and
+                                 exit.
+  --help-properties [<f>]      = Print cmake-properties manual and exit.
+  --help-variable var [<f>]    = Print help for one variable and exit.
+  --help-variable-list [<f>]   = List variables with help available and exit.
+  --help-variables [<f>]       = Print cmake-variables manual and exit.
+
+Generators
+
+The following generators are available on this platform:
+  Unix Makefiles               = Generates standard UNIX makefiles.
+  Ninja                        = Generates build.ninja files.
+  Watcom WMake                 = Generates Watcom WMake makefiles.
+  CodeBlocks - Ninja           = Generates CodeBlocks project files.
+  CodeBlocks - Unix Makefiles  = Generates CodeBlocks project files.
+  CodeLite - Ninja             = Generates CodeLite project files.
+  CodeLite - Unix Makefiles    = Generates CodeLite project files.
+  Sublime Text 2 - Ninja       = Generates Sublime Text 2 project files.
+  Sublime Text 2 - Unix Makefiles
+                               = Generates Sublime Text 2 project files.
+  Kate - Ninja                 = Generates Kate project files.
+  Kate - Unix Makefiles        = Generates Kate project files.
+  Eclipse CDT4 - Ninja         = Generates Eclipse CDT 4.0 project files.
+  Eclipse CDT4 - Unix Makefiles= Generates Eclipse CDT 4.0 project files.
+  KDevelop3                    = Generates KDevelop 3 project files.
+  KDevelop3 - Unix Makefiles   = Generates KDevelop 3 project files.
+~~~
+{: .output}
+
+
+If we want to find out more about a particular command, then we use
+`--help-command` option. For example, to find out about the `project` command,
+
+~~~
+chenna@chenna-XPS-15-9570:~$ cmake --help-command project
+project
+-------
+
+Set a name, version, and enable languages for the entire project.
+
+ project(<PROJECT-NAME> [LANGUAGES] [<language-name>...])
+ project(<PROJECT-NAME>
+         [VERSION <major>[.<minor>[.<patch>[.<tweak>]]]]
+         [DESCRIPTION <project-description-string>]
+         [LANGUAGES <language-name>...])
+
+Sets the name of the project and stores the name in the
+``PROJECT_NAME`` variable.  Additionally this sets variables
+
+* ``PROJECT_SOURCE_DIR``,
+  ``<PROJECT-NAME>_SOURCE_DIR``
+* ``PROJECT_BINARY_DIR``,
+  ``<PROJECT-NAME>_BINARY_DIR``
+
+If ``VERSION`` is specified, given components must be non-negative integers.
+If ``VERSION`` is not specified, the default version is the empty string.
+The ``VERSION`` option may not be used unless policy ``CMP0048`` is
+set to ``NEW``.
+
+The ``project()`` command stores the version number and its components
+in variables
+
+* ``PROJECT_VERSION``,
+  ``<PROJECT-NAME>_VERSION``
+* ``PROJECT_VERSION_MAJOR``,
+  ``<PROJECT-NAME>_VERSION_MAJOR``
+* ``PROJECT_VERSION_MINOR``,
+  ``<PROJECT-NAME>_VERSION_MINOR``
+* ``PROJECT_VERSION_PATCH``,
+  ``<PROJECT-NAME>_VERSION_PATCH``
+* ``PROJECT_VERSION_TWEAK``,
+  ``<PROJECT-NAME>_VERSION_TWEAK``
+
+Variables corresponding to unspecified versions are set to the empty string
+(if policy ``CMP0048`` is set to ``NEW``).
+
+If optional ``DESCRIPTION`` is given, then additional ``PROJECT_DESCRIPTION``
+variable will be set to its argument. The argument must be a string with short
+description of the project (only a few words).
+
+Optionally you can specify which languages your project supports.
+Example languages are ``C``, ``CXX`` (i.e.  C++), ``Fortran``, etc.
+By default ``C`` and ``CXX`` are enabled if no language options are
+given.  Specify language ``NONE``, or use the ``LANGUAGES`` keyword
+and list no languages, to skip enabling any languages.
+
+If a variable exists called ``CMAKE_PROJECT_<PROJECT-NAME>_INCLUDE``,
+the file pointed to by that variable will be included as the last step of the
+project command.
+
+The top-level ``CMakeLists.txt`` file for a project must contain a
+literal, direct call to the ``project()`` command; loading one
+through the ``include()`` command is not sufficient.  If no such
+call exists CMake will implicitly add one to the top that enables the
+default languages (``C`` and ``CXX``).
+
+.. note::
+  Call the ``cmake_minimum_required()`` command at the beginning
+  of the top-level ``CMakeLists.txt`` file even before calling the
+  ``project()`` command.  It is important to establish version and
+  policy settings before invoking other commands whose behavior they
+  may affect.  See also policy ``CMP0000``.
+~~~
+{: .output}
+
+
+
+## Useful resources
+To learn CMake in much more detail, the following resources are suggested.
+
+* **CMake official documentation** <https://cmake.org/cmake/help/v3.16/>
+* **CMake community Wiki** <https://gitlab.kitware.com/cmake/community/wikis/home>
+* **CMake official tutorial guide** <https://cmake.org/cmake/help/latest/guide/tutorial/index.html>
+* **An Introduction to Modern CMake** book <https://cliutils.gitlab.io/modern-cmake/>
+* **CMake projects in Visual Studio** <https://docs.microsoft.com/en-us/cpp/build/cmake-projects-in-visual-studio?view=vs-2019>
+* **More Modern CMake** by Deniz Bahadir (C++ Meeting 2018) <https://www.youtube.com/watch?v=y7ndUhdQuU8&feature=youtu.be>
 
 
 {% include links.md %}
