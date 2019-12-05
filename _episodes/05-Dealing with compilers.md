@@ -9,7 +9,8 @@ objectives:
 - "To learn how to change the compiler"
 - "To learn how to set the compiler flags"
 keypoints:
-- "First key point. Brief Answer to questions. (FIXME)"
+- "Variables set inside the CMakeLists.txt will override those set by the system"
+- "We can always set the compiler using the CMake's variables"
 ---
 
 The true power of CMake is in its flexibility to specify various configuration

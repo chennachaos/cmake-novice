@@ -71,7 +71,7 @@ To use CMake, you need to create configuration scripts/files called
 for example, Makefiles on Unix machines and projects/workspaces for
 Microsoft Visual Studio on Windows machines.
 
-If there are multiple models, then a separate CMakeLists.txt file needs
+If there are multiple modules, then a separate CMakeLists.txt file needs
 to be created for each module.
 
 CMake syntax looks similar to that of a high-level programming language.
@@ -81,7 +81,7 @@ flexibility in developing single script file that can be used across
 multiple platforms.
 
 CMake has also *modules*. A common use for modules is for external package
-management: the `find_package` uses, under the hood, modules for each packa
+management: the `find_package` uses, under the hood, modules for each package.
 
 ### CMake Flavours
 CMake has been used widely since 2000, the year of its creation. During these
