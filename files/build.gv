@@ -13,7 +13,7 @@ digraph build {
    libraries?\n$LD_LIBRARY_PATH,\n$LD_PRELOAD..." ];
    objects [label = "Object Files\n.o", shape = box ];
    statlinking [ label = "Static Linking\n\"ld\" (and wrappers)", shape = pentagon, color = orange ] 
-   program [ label = "Executable", shape = box ];
+   program [ label = "Executable \n(or library)", shape = box ];
    dynlinking [ label = "Dynamic Linking\n\"ld\"", shape = pentagon, color =
    orange ] 
    running [label = "Running Executable", shape = box ];

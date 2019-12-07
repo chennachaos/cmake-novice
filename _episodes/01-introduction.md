@@ -69,27 +69,19 @@ hundreds of files.
 To use CMake, you need to create configuration scripts/files called 
 *CMakeLists.txt* which are used by CMake to generate build files,
 for example, Makefiles on Unix machines and projects/workspaces for
-Microsoft Visual Studio on Windows machines.
-
+Microsoft Visual Studio on Windows machines.  
 If there are multiple modules, then a separate CMakeLists.txt file needs
-to be created for each module.
-
+to be created for each module.  
 CMake syntax looks similar to that of a high-level programming language.
 In fact, CMake scripts are full of calls to inbuilt functions. CMake 
-also supports variables, conditional statements and loops, offering the user the 
-flexibility in developing single script file that can be used across
-multiple platforms.
-
-CMake has also *modules*. A common use for modules is for external package
-management: the `find_package` uses, under the hood, modules for each package.
-
-### CMake Flavours
-CMake has been used widely since 2000, the year of its creation. During these
-years, CMake and its users have evolved, coming up with better practices. 
-Those who want to write new `CMakeLists.txt` file today should try to stick to a
-set of practices usually denoted as "modern CMake", which have the goal of
-making the build system more robust and easier to maintain. 
-
+also supports variables, conditional statements, loops and functions,
+offering the user the flexibility in developing single script file that 
+can be used across multiple platforms.  
+CMake has also *modules*, i.e. scripts with a `.cmake` extension 
+that can be loaded with the `include` command. 
+A common use for modules is for external package
+management: the `find_package` function uses, under the hood, modules for each package.  
+For language enthusiasts, a comprehensive guide to the syntax of CMake can be found [here](https://cmake.org/cmake/help/latest/manual/cmake-language.7.html#syntax).
 
 ### Building software 101
 
@@ -99,24 +91,43 @@ only the sources are available, a number of steps needs to happen:
 2. Static Linking
 3. Dynamic Linking
 
-WHERE IS MY AWESOME GRAPH
+![Build Steps](../fig/build.png)
 
 #### Compilation
 In the compilation, the source files (`.c`,`.cpp`,`.f*`,`.F*`) are translated
 into object files (`.o`), once the necessary dependences are resolved and
-processed (`.h`,`.hpp`,`.mod`).  In the case of Fortran, this step may also
-create the *modulefiles*, with extension `.mod`.
+processed (`.h`,`.hpp`,`.mod`).  In the case of Fortran (or C++ with the
+C++20 standard), this step may also
+create the *modulefiles*, with extension `.mod`
+(`.bmi` for the C++20 case). 
 The compiler (e.g., `c++`,`gcc`,`g++`,`gfortran` but also their `mpiXXX`
-wrappers) are responsible for this step. It is crucial that the compilers are
-informed
+wrappers) are responsible for this step. It is crucial that the compilers
+know where the header files and module files can be found.
 
 #### Static Linking
 
+The object files produced at the compilation stage do not contain 
+individually all the instructions which are necessary for the program to 
+run. 
+Linking is the process of joining together multiple object files 
+and libraries.
+This is not only done to build executable programs but also to build 
+libraries that can either be using for static linking or for dynamic 
+linking at a later stage.
+Linking is performed by `ld` on linux systems, and can be partially 
+delayed to run time (see dynamic linking). 
+The use of static linking might be beneficial for performance, in the 
+fact that most compiler can perform additional optimisation at this stage
+through *interprocedural analysis*. 
+On the other hand, static linking does increase the size of the programs
+and libraries when it is performed.
+
 #### Dynamic Linking
-CMake is not responsible for anything at this stage. This "last build stage" is 
-performed only by the linker (`ld` on Linux systems).
-
-
+ This "last build stage" is performed only by the linker just before execution. This is the step where
+the program is linked to most HPC libraries, the compilation and 
+installation of which is usually fine-tuned for each system and should 
+not be in the concerns of the average HPC user. 
+CMake is not responsible for anything at this stage.
 
 ### Frequently used CMake functions
 
@@ -135,21 +146,49 @@ message("Compiler options: ${COPT}")
 ~~~
 {: .language-cmake}
 
-* `include_directories` - sets the list of directories to look for the header files
+* `include_directories` - sets the list of directories to look for the 
+header files and modules. Also `target_include_directories` can be used 
+to set this property for a single target.
 
-* `link_directories` - sets the list of directories to look for the library (.so, .a) files
+* `link_directories` - sets the list of directories to look for the 
+library (.so, .a) files. Also `target_link_directories` can be used 
+to set this property for a single target.
 
-* `add_executable` - adds the executable target with a given name
+* `add_executable` - adds the executable target with a given name.
 
-* `add_library` - adds a library
+* `add_library` - adds a library target.
 
-* `target_link_libraries` - sets the list of libraries to be linked when building a particular target
+* `link_libraries` - sets the list of libraries to be linked when building any target. Also, `target_link_libraries` can be used to set this property for as single target.
 
 * `install` - sets the path to the folder where the executables should be installed
 
-## Modern CMake
+
+### CMake Flavours, Modern CMake and best practices
+CMake has been used widely since 2000, the year of its creation. During these
+years, CMake and its users have evolved, coming up with better practices. 
+Those who want to write new `CMakeLists.txt` files today should try 
+to stick to a set of practices usually denoted as "modern CMake", 
+which have the goal of
+making the build system more robust and easier to maintain.
+Moreover, projects following the latest guidelines can be reused more 
+easily.
+In the CMake jargon, there are a couple of definitions:
 * "Modern CMake" refers to CMake 3.0+.
 * "More Modern CMake" refers to CMake 3.12+.
+Some common themes in the latest best practices of CMake:
+* use so-called "targets" and `target_...()` functions instead of 
+the untargeted versions, 
+e.g. `target_link_libraries()` instead of `link_libraries()`, and 
+`target_include_directories()` instead of `include_directories()`.
+* avoid using variables, use `target_...()` functions instead to set the
+corresponding property on a target. 
+* don't touch the CMake variables for the compiler flags (e.g. 
+`CMAKE_CXX_FLAGS`), use `target_compile_options()`, 
+`target_compile_features()` and `target_compile_definitions()`.
+
+It is most important to follow the latest best practices when writing 
+writing libraries for the use of others.
+
 
 ## Installing CMake
 ### Windows
@@ -159,8 +198,9 @@ refer to <https://cmake.org/install/>
 
 ### Linux and macOS
 CMake is available in the package list on most of the Linux OS and mac OS.
-Pre-compiled binaries are also available for Linux and macOS. For installing
-CMake from source code, refer to <https://cmake.org/install/>
+Pre-compiled binaries are also available for Linux and macOS. 
+For installing CMake from source code, refer to 
+<https://cmake.org/install/>
 
 
 
@@ -350,7 +390,8 @@ default languages (``C`` and ``CXX``).
 ## Useful resources
 To learn CMake in much more detail, the following resources are suggested.
 
-* **CMake official documentation** <https://cmake.org/cmake/help/v3.16/>
+* **CMake official documentation** <https://cmake.org/cmake/help/latest/>
+   Make sure it is the version you are using!
 * **CMake community Wiki** <https://gitlab.kitware.com/cmake/community/wikis/home>
 * **CMake official tutorial guide** <https://cmake.org/cmake/help/latest/guide/tutorial/index.html>
 * **An Introduction to Modern CMake** book <https://cliutils.gitlab.io/modern-cmake/>
