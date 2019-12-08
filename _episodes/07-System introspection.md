@@ -258,9 +258,9 @@ that we can use in `target_include_directories()` and
 > think we have no control over it any more, and 
 > wonder if it is not doing something dodgy in the background.  
 > To have all the commands printed out during compilation, it is possible
-> to define `VERBOSE` when invoking `make`:
+> to define `VERBOSE=1` when invoking `make`:
 > ```bash
-> make VERBOSE=1 # anything, even '', would work
+> make VERBOSE=1
 > ```
 > so that all the commands will be visible. You may want to redirect the
 > output to a file.  

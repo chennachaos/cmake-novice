@@ -78,7 +78,7 @@ also supports variables, conditional statements, loops and functions,
 offering the user the flexibility in developing single script file that 
 can be used across multiple platforms.  
 CMake has also *modules*, i.e. scripts with a `.cmake` extension 
-that can be loaded with the `include` command. 
+that can be loaded with the `include()` command. 
 A common use for modules is for external package
 management: the `find_package` function uses, under the hood, modules for each package.  
 For language enthusiasts, a comprehensive guide to the syntax of CMake can be found [here](https://cmake.org/cmake/help/latest/manual/cmake-language.7.html#syntax).
@@ -175,19 +175,21 @@ easily.
 In the CMake jargon, there are a couple of definitions:
 * "Modern CMake" refers to CMake 3.0+.
 * "More Modern CMake" refers to CMake 3.12+.
+
 Some common themes in the latest best practices of CMake:
 * use so-called "targets" and `target_...()` functions instead of 
 the untargeted versions, 
 e.g. `target_link_libraries()` instead of `link_libraries()`, and 
 `target_include_directories()` instead of `include_directories()`.
-* avoid using variables, use `target_...()` functions instead to set the
-corresponding property on a target. 
+* try avoid creating or setting variables, create tergets and use 
+`target_...()` functions instead to set the corresponding property on a target.
+
 * don't touch the CMake variables for the compiler flags (e.g. 
 `CMAKE_CXX_FLAGS`), use `target_compile_options()`, 
-`target_compile_features()` and `target_compile_definitions()`.
+`target_compile_features()` and `target_compile_definitions()` instead.
 
-It is most important to follow the latest best practices when writing 
-writing libraries for the use of others.
+These best practices can be extremely beneficial and effective in managing
+complexity when writing writing libraries and frameworks.
 
 
 ## Installing CMake
