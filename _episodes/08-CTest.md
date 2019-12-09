@@ -3,6 +3,7 @@ title: "CTest"
 teaching: 20
 exercises: 15
 questions:
+- "What is testing?"
 - "How can CTest help me with managing my tests?"
 objectives:
 - "Use CTest to run a suite of automatic tests"
