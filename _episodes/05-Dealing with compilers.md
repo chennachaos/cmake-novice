@@ -68,7 +68,6 @@ compile command when compiling a file of a particular language.
     * CMAKE_Fortran_COMPILER, CMAKE_Fortran_COMPILER_ID, CMAKE_Fortran_COMPILER_Version and CMAKE_Fortran_FLAGS.
 
 
-
 ## Setting the compiler
 By default, CMake picks up the compiler from the environment using the 
 environment variables, `CC`, `CXX` and `FC` etc. We have seen this with
@@ -97,6 +96,16 @@ set(COPT "-std=c++11 -O3 -D DOMAIN2D -fopenmp  -fpermissive -frounding-math")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${COPT}")
 
 ```
+
+
+> ## Exercise
+> 1. Enter the `ex3` directory
+> 2. Update the CMakeLists.txt with
+>   * the project for CXX
+>   * set the CXX compiler
+>   * set CXX compiler flags
+> 3. Compile, build, install and run the executable(s)
+{: .challenge}
 
 
 

@@ -26,9 +26,26 @@ This might be an overkill to build the executable for an application
 with a single source file. However, this demonstrates the important steps
 involved in using CMake for building the executables for complex projects.
 
+For this chapter, we use the files included in the `ex1` subfolder in the `exercises` directory. `ex1` folder contains two files:
 
-To start, create a new folder `hello` and copy the `hello_cmake.cpp` 
-file into it. Then, create *CMakeLists.txt* file with the following content.
+1.) `hello_cmake.cpp`, the source file which prints out `Hello CMake!`.
+
+~~~
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+	cout << "Hello CMake!" << endl;
+
+    return 0;
+}
+~~~
+{: .language-cpp}
+
+2.) `CMakeLists.txt`, the CMake file.
+
 ~~~
 cmake_minimum_required(VERSION 2.8.1)
 

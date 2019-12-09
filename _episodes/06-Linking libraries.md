@@ -109,4 +109,17 @@ target_link_libraries(test_target myFunctions)
 ```
 
 
+> ## Exercise
+> 1. Enter the `ex4` directory
+> 2. Update the CMakeLists.txt with
+>   * the project for CXX
+>   * set the CXX compiler
+>   * set CXX compiler flags
+>   * set the missing entries in
+>       * include_directories
+>       * link_directories
+> 3. Compile, build, install and run the executable(s)
+{: .challenge}
+
+
 {% include links.md %}
