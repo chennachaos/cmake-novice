@@ -190,8 +190,9 @@ then used in a call to [`target_link_directories()`](https://cmake.org/cmake/hel
 > > find_path(PATH_TO_FIND NAMES findme PATHS $ENV{HOME}/*/* )
 > > message("The file is in " ${PATH_TO_FIND})
 > > ```
-> > An asterisk `*` needs to be used for each level. Multiple paths can
-> > be specified.
+> > An asterisk `*` needs to be used for each level. 
+> > Sub-directories will not be searched, but
+> > multiple paths can be specified.
 > {: .solution}
 {: .challenge}
 

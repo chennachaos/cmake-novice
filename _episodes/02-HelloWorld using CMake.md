@@ -131,14 +131,28 @@ Executing the above command produces the following output.
 {: .output}
 
 
-> ## cmake .
+> ## cmake . and best practices
 > We can achieve the same by simply executing
 > ~~~
 > cmake .
 > ~~~
 > {: .language-bash}
 > This command runs the configuration step using the CMakeLists.txt 
-file available in the current working directory.
+> file available in the current working directory. While this is convenient for 
+> a small project, for larger projects it is usually deprecated in favour of
+> **out-of-source builds**, which are done in a separate directory (as we will see 
+> in the next episode):
+> ~~~
+> mkdir build
+> cd build
+> cmake ..
+> ~~~
+> In this way, all the files produced by CMake are going to be contained in
+> the `build` directory. The fact that CMake does not provide a way to
+> automatically clean the files produced by CMake itself (differently from,
+> e.g., automake which provides the `distclean` command) is one of the strong 
+> reasons to avoid in-source builds (see the relevant part of the
+> [FAQ](https://gitlab.kitware.com/cmake/community/wikis/FAQ#out-of-source-build-trees)).
 {: .callout}
 
 
@@ -180,6 +194,8 @@ Hello CMake!
 Hurray!! We have successfully built an executable that works as intended.
 In the next example, we will look at building an executable for a more 
 complex project that consists of multiple source files.
+
+
 
 {% include links.md %}
 
