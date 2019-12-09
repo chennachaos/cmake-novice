@@ -3,11 +3,11 @@ title: "CTest"
 teaching: 20
 exercises: 15
 questions:
-- "Key question (FIXME)"
+- "How can CTest help me with managing my tests?"
 objectives:
 - "Use CTest to run a suite of automatic tests"
 keypoints:
-- "`enable_testing()` and `include(CTest)`"
+- "`include(CTest)` to allow testing"
 - "`add_test()` to create a new test specifying a command"
 - "`configure_file()` to copy the necessary files in the build directory"
 ---
@@ -24,8 +24,8 @@ programmer would check the correctness of the program again. As the code
 becomes more and more complex, this strategy just does not scale, to
 the point that it may become too time consuming to verify with a 
 satisfying degree of certainty that the program works after any change or 
-extension, which means that it is not going to be changed or exended any more
-by any sensible person.
+extension, which means that no sensible person is going to be change or 
+extend it any more.
 
 There are many strategies to cope with this, each presenting its own advantages
 and disadvantages. It is widely accepted, though, that an automatic test suite
@@ -40,22 +40,22 @@ works right or not, making extensive changes to the code possible again.
 > * If not, would an automatic test suite be beneficial? 
 > * What are the trade-offs involved in writing a test suite? Would it be 
 >   worth it?
-{: .challenge}
+{: .discussion}
 
 ## CTest and CMake
 
 CTest is the testing framework associated to CMake. It can be used to run a
 batch of test programs.  
-Compared to unit test frameworks like `pytest` and `unittest` for Python,
-`Googletest` for C++ or `JUnit` for Java, which allow you to define tests
+Compared to unit test frameworks like Pytest and Unittest for Python,
+Googletest for C++ or JUnit for Java, which allow you to define tests
 as smaller units of code, CTest requires the user to write tests as
 program invocations which need to return proper error codes.
 It can require more boilerplate code than other 
-frameworks and tend to encourage copy-paste. On the other hand, its use 
-is simple and language-independent, as it accepts any executable script 
-or program as a test command.
+frameworks, on the other hand its use 
+is simple and language-independent, as it accepts any shell command as a test
+definition.
 
-## Adding tests to the build system.
+## Adding tests to the build system
 
 For this section, we will be writing the CTest-related part of a 
 CMake-built project. You can clone the repository [here](https://github.com/mmesiti/sudoku). 
@@ -79,14 +79,14 @@ make
 ```
 You might need to load a module that allows the use of a recent compiler, 
 and a recent cmake version:
-```
+```bash
 module load cmake
 module load compiler/gnu
 ```
 In case of errors, you might also need to clear the CMake cache. There is
 already a directory `test` containing the source code of some test 
 programs. We are now going to create a test and add it to the build system.
-First of all, we need to enable testing and add the `tests` directory in the
+First of all, we need to add the `tests` directory in the
 root `CMakeLists.txt`:
 ```cmake
 enable_testing()
@@ -95,13 +95,13 @@ add_subdirectory(tests)
 we can then, in the `tests` directory, create a `CMakeLists.txt` file 
 with the following content:
 ```cmake
-include(CTest)
-
 add_executable(test_algorithms test_algorithms.cpp)
 target_link_libraries(test_algorithms common algo1 algo2)
 ```
-This creates the executable program from the source `test_algorithms.cpp` and 
-links it with the library targets `common`, `algo1` and `algo2`.  
+This code does the following:
+* creates the executable program from the source `test_algorithms.cpp` 
+* links it with the library targets `common`, `algo1` and `algo2`.  
+
 The program test reads a Sudoku table, runs one of the algorithms on it with 
 a maximum number of iterations and checks whether or not a solution is found
 and if it matches a known solution.

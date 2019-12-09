@@ -37,7 +37,7 @@ As shown, the project directory consists of
 * a `CMakeLists.txt` file with the configuration options.
 
 * a `build` folder for managing the configuration and compilation of the
-  source code.
+  source code (for an **out-of-source build**).
 
 * a `bin` directory for installing the executables.
 

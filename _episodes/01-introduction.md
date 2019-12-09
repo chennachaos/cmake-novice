@@ -399,7 +399,7 @@ To learn CMake in much more detail, the following resources are suggested.
 * **An Introduction to Modern CMake** book <https://cliutils.gitlab.io/modern-cmake/>
 * **CMake projects in Visual Studio** <https://docs.microsoft.com/en-us/cpp/build/cmake-projects-in-visual-studio?view=vs-2019>
 * **More Modern CMake** by Deniz Bahadir (C++ Meeting 2018) <https://www.youtube.com/watch?v=y7ndUhdQuU8&feature=youtu.be>
-
+* **CMake FAQ page** <https://gitlab.kitware.com/cmake/community/wikis/FAQ>
 
 {% include links.md %}
 
