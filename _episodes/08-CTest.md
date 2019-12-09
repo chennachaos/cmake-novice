@@ -3,7 +3,8 @@ title: "CTest"
 teaching: 20
 exercises: 15
 questions:
-- "Key question (FIXME)"
+- "What is testing?"
+- "How to use CTest?"
 objectives:
 - "Use CTest to run a suite of automatic tests"
 keypoints:
