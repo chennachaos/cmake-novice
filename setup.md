@@ -5,7 +5,7 @@ title: Setup
 ## Data files
 
 You need to download some files for the exercises in this course.
-1. Download [exercises.zip](cmake-novice/data/exercises.zip)
+1. Download [exercises.zip](./data/exercises.zip)
 2. Unzip/extract files.
 2. Copy `exercises` folder to your home directory on your account on Sunbird.
    If you are working locally, then copy it to some convenient location.
