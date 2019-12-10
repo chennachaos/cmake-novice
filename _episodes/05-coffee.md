@@ -4,7 +4,6 @@ title: "Coffee break"
 break: 15
 ---
 
-We will have a short break now for 20 minutes. Have a snack or a drink, 
-or just stand up and stretch your legs.
+We will have a short break now for 15 minutes.
 
 {% include links.md %}
