@@ -131,20 +131,18 @@ CMake is not responsible for anything at this stage.
 
 ### Frequently used CMake functions
 
-* `cmake_minimum_required` - sets minimum version of cmake to be used
+* `cmake_minimum_required` - sets minimum version of CMake to be used
 
 * `set` - creates a variable with the specified value
-~~~
+```cmake
 set(COPT, "-w -g -O2")
-~~~
-{: .language-cmake}
+```
 
 * `message` - prints the given message to the screen
-~~~
+```cmake
 message("Compiler is Intel...")
 message("Compiler options: ${COPT}")
-~~~
-{: .language-cmake}
+```
 
 * `include_directories` - sets the list of directories to look for the 
 header files and modules. Also `target_include_directories` can be used 
@@ -189,7 +187,11 @@ e.g. `target_link_libraries()` instead of `link_libraries()`, and
 `target_compile_features()` and `target_compile_definitions()` instead.
 
 These best practices can be extremely beneficial and effective in managing
-complexity when writing writing libraries and frameworks.
+complexity when writing libraries and frameworks.
+
+However, the use of modern CMake requires a decent understanding of
+CMake syntax, and it is easy to get lost in the details. Experiment with 
+the old CMake first and then switch to Modern CMake.
 
 
 ## Installing CMake
