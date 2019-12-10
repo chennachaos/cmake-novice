@@ -18,15 +18,17 @@ keypoints:
 
 ## Writing CMakeLists.txt
 In this episode, we will start using CMake for building an executable
-for the simple Hello World program written in C++. The source code 
-`hello_cmake.cpp` is available in the course material that can be downloaded
-from the `setup` page of this course.
+for the simple Hello World program written in C++.
 
 This might be an overkill to build the executable for an application 
 with a single source file. However, this demonstrates the important steps
 involved in using CMake for building the executables for complex projects.
 
-For this chapter, we use the files included in the `ex1` subfolder in the `exercises` directory. `ex1` folder contains two files:
+For this chapter, we use the files included in the `ex1` subfolder in the
+`exercises` directory. The source code can be downloaded from the
+`setup` page of this course.
+
+`ex1` folder contains two files:
 
 1.) `hello_cmake.cpp`, the source file which prints out `Hello CMake!`.
 
@@ -72,7 +74,8 @@ Our CMakeLists.txt file consists of three lines.
 Now, let us see how we can compile the source code and build the executable
 using this CMakeLists.txt file. For this exercise, we use the GNU compiler.
 
-Load the GNU compiler.
+Load the GNU compiler. (This step is not necessary if you are working locally
+on your computer.)
 ~~~
 module purge
 module load compiler/gnu/7/3
@@ -103,7 +106,8 @@ make
 **3.) Installation step:** This step copies the successfully generated
 executables to the path specified. This step is not necessary for this
 example. But it is very useful for organising the source code into multiple
-folders when dealing with the large projects.
+folders when dealing with the large projects. We will explore this step
+in the next chapter.
 ~~~
 make install
 ~~~
@@ -182,7 +186,7 @@ Linking CXX executable hello_cmake
 ~~~
 {: .language-bash}
 
-The last in the output tells us that the executable `hello_cmake` has been
+The last line in the output tells us that the executable `hello_cmake` has been
 successfully generated. We can now execute it.
 ~~~
 [s.engkadac@sl2 hello]$ ./hello_cmake 
