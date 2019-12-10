@@ -130,13 +130,13 @@ make install
 > ## Fortran projects
 > When working with Fortran source code with Makefiles, we have to 
 > supply the (module) dependency information to the Makefiles.
-> While this is doable manually for small project, it becomes a
+> While this is doable manually for small projects, it becomes a
 > daunting task for large projects that consists of hundreds of source
 > files.
 >
 > This task is completely avoided by using CMake because CMake 
 > resolves depending for us. All that we need to do is to specify the list
-> source files, which we can do it by using wildcards, for example, *.f or *.f90 etc.
+> of source files, which we can do it by using wildcards, for example, *.f or *.f90 etc.
 {: .callout}
 
 
