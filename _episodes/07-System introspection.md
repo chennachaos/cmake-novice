@@ -175,8 +175,8 @@ then used in a call to [`target_link_directories()`](https://cmake.org/cmake/hel
 > ```cmake 
 > cmake_minimum_required(VERSION 2.8)
 > project(test)
-> find_path(PATH_TO_FIND NAMES findme PATHS ...)
-> message("The file is in " ${PATH_TO_FIND})
+> find_path(Path_To_Find NAMES findme PATHS ...)
+> message("The file is in " ${Path_To_Find})
 > ```
 > 3.  configure the project using `cmake . ` and observe the output. 
 >     Was the file found?
@@ -187,8 +187,8 @@ then used in a call to [`target_link_directories()`](https://cmake.org/cmake/hel
 > > ```cmake 
 > > cmake_minimum_required(VERSION 2.8)
 > > project(test)
-> > find_path(PATH_TO_FIND NAMES findme PATHS $ENV{HOME}/*/* )
-> > message("The file is in " ${PATH_TO_FIND})
+> > find_path(Path_To_Find NAMES findme PATHS $ENV{HOME}/*/* )
+> > message("The file is in " ${Path_To_Find})
 > > ```
 > > An asterisk `*` needs to be used for each level. 
 > > Sub-directories will not be searched, but
@@ -210,7 +210,7 @@ finding libraries, as it can be cleverer with names and search paths.
 > > cmake_minimum_required(VERSION 2.8)
 > > project(test)
 > > find_library(MPI NAMES mpifort PATHS $ENV{MPI_ROOT}/* )
-> > message("The file is in " ${PATH_TO_FIND})
+> > message("The file is in " ${MPI})
 > > ```
 > {: .solution}
 > Notice that MPI libraries are used daily by thousands of people. 
